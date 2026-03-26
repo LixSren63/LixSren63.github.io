@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>春夜喜雨</title>
+
+  <style>
+    /* 颜色变量：切换模式只改这里 */
+    :root {
+      --bg-gradient: linear-gradient(to bottom, #f5f7fa, #eef2f7);
+      --text-color: #2c3e50;
+      --card-bg: #fff;
+      --card-hover: #f8f9fa;
+      --link-color: #34495e;
+      --footer-color: #999;
+      --shadow: 0 2px 8px rgba(0,0,0,0.06);
+      --tip-bg: #2c3e50;
+    }
+    .dark {
+      --bg-gradient: linear-gradient(to bottom, #1a1a2e, #16213e);
+      --text-color: #e0e0e0;
+      --card-bg: #0f3460;
+      --card-hover: #1a4a7a;
+      --link-color: #c0c0c0;
+      --footer-color: #666;
+      --shadow: 0 2px 8px rgba(0,0,0,0.2);
+      --tip-bg: #3a4a5e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: "Microsoft YaHei", sans-serif;
+      animation: fadeIn 0.8s ease;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* 黑夜模式切换按钮 */
+    #darkToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    #darkToggle:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    .dark #darkToggle:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* 左上角头像 */
+    .avatar-box {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+    .avatar:hover {
+      transform: scale(1.1);
+    }
+    .tooltip {
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      transform: translateY(-50%);
+      background: var(--tip-bg);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .avatar-box:hover .tooltip {
+      opacity: 1;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: var(--text-color);
+      font-family: "SimSun", "Songti SC", serif;
+      letter-spacing: 2px;
+      font-weight: normal;
+    }
+
+    .bio {
+      font-size: 16px;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-top: -8px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .link-box {
+      display: flex;
+      gap: 16px;
+    }
+
+    a {
+      font-size: 16px;
+      color: var(--link-color);
+      background: var(--card-bg);
+      padding: 10px 22px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    a:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+      color: var(--footer-color);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 黑夜模式切换按钮 -->
+  <button id="darkToggle">🌙</button>
+
+  <!-- 头像 + 气泡 -->
+  <div class="avatar-box">
+    <span class="tooltip">你好</span>
+    <img src="https://i0.hdslb.com/bfs/new_dyn/13518c26eb699020da8538ee12c0ff51363639279.jpg@1052w_!web-dynamic.webp" class="avatar" alt="作者头像">
+  </div>
+
+  <main>
+    <h1>🍃 随风潜入夜，润物细无声 🌧️</h1>
+    <p class="bio">一个脱离的高级趣味的人<br>yangyr@mail.dlut.edu.cn</p>
+    <div class="link-box">
+      <a href="https://space.bilibili.com/363639279" target="_blank">B站主页</a>
+      <a href="https://github.com/LixSren63" target="_blank">GitHub主页</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 随风潜入夜 | 润物细无声
+  </footer>
+
+  <script>
+    // 标题切换功能
+    const originalTitle = document.title;
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        document.title = '燕返';
+      } else {
+        document.title = originalTitle;
+      }
+    });
+
+    // 黑夜模式切换
+    const toggleBtn = document.getElementById('darkToggle');
+    const html = document.documentElement;
+
+    // 页面加载时，恢复用户上次的选择
+    if (localStorage.getItem('darkMode') === 'true') {
+      html.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+
+    // 点击切换
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      toggleBtn.textContent = isDark ? '☀️' : '🌙';
+    });
+  </script>
+</body>
+</html>
